@@ -1,0 +1,77 @@
+#include<iostream>
+#include<vector>
+#include<string>
+#include<bits/stdc++.h>
+
+using namespace std;
+string swap_word(int change ,int pos,string word)
+{
+    int i,j,pos2=pos;
+    char c,max=word[pos];
+    
+    for(i=pos;i<word.size();i++)
+    {
+        if(word[i]>word[change] && word[i]<max)
+        {
+            max=word[i];
+            pos2=i;
+        }
+        else if(word[i]<=word[change])
+        {
+            break;
+        }
+    }
+    
+    c=word[change];
+    word[change]=word[pos2];
+    word[pos2]=c;
+    
+    return word;
+}
+
+string reverse_word(string word,int pos)
+{
+   
+    reverse(word.begin()+pos,word.end());
+    
+    return word;
+}
+int main()
+{
+    string word,new_word;
+    int n,i,j,flag=0;
+    cin>>n;
+    while(n--)
+    {
+        flag=0;
+        cin>>word;
+        for(i=word.size()-1;i>0;i--)
+        {
+            if(word[i]>word[i-1])
+            {
+                new_word=swap_word(i-1,i,word);
+                new_word=reverse_word(new_word,i);
+                flag=1;
+                break;
+            }
+            else if((word[i]==word[i-1]) && (i-1)==0)
+            {
+                new_word=word;
+                flag=1;
+            }
+        }
+        if(new_word==word || flag==0)
+        {
+            cout<<"no answer"<<endl;
+        }
+        else
+        {
+            
+            cout<<new_word<<endl;
+    
+        }
+    }
+    
+    return 0;
+    
+}
